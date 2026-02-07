@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Day Finder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 25px 30px;
+            border-radius: 8px;
+            width: 320px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        input {
+            width: 90%;
+            padding: 8px;
+            margin: 6px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px;
+            width: 95%;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #222;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Day Finder</h2>
+
+    <input type="number" id="day" placeholder="Day (1-31)">
+    <input type="number" id="month" placeholder="Month (1-12)">
+    <input type="number" id="year" placeholder="Year">
+
+    <button onclick="findDay()">Find Day</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function findDay() {
+        let day = parseInt(document.getElementById("day").value);
+        let month = parseInt(document.getElementById("month").value);
+        let year = parseInt(document.getElementById("year").value);
+
+        // Basic validation
+        if (isNaN(day) || isNaN(month) || isNaN(year)) {
+            document.getElementById("result").innerText = "Please enter all values.";
+            return;
+        }
+
+        // JavaScript months are 0-based (0 = January)
+        let date = new Date(year, month - 1, day);
+
+        // Check if date is valid
+        if (
+            date.getFullYear() !== year ||
+            date.getMonth() !== month - 1 ||
+            date.getDate() !== day
+        ) {
+            document.getElementById("result").innerText = "Invalid date!";
+            return;
+        }
+
+        let daysOfWeek = [
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday"
+        ];
+
+        let dayName = daysOfWeek[date.getDay()];
+        document.getElementById("result").innerText =
+            "Day of the week: " + dayName;
+    }
+</script>
+
+</body>
+</html>
